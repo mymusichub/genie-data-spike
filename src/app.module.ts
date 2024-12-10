@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
-import { ImageController } from './image/image.controller';
-import { ImageService } from './image/image.service';
-import { OpenAIService } from './openAi/openAi.service';
 import { ConfigModule } from '@nestjs/config';
+import { ImageController } from 'src/image/image.controller';
+import { ImageService } from 'src/image/image.service';
+import { OpenAIService } from 'src/openAi/openAi.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env',
-      isGlobal: true, 
+      isGlobal: true,
     }),
   ],
   controllers: [ImageController],

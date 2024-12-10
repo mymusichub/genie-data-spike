@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { zodResponseFormat } from "openai/helpers/zod";
-import { z } from "zod";
-import { ImageValidationResponse } from 'src/app.types';
+import { zodResponseFormat } from 'openai/helpers/zod';
+import { z } from 'zod';
+import { ImageValidationResponse } from 'app.types';
 import { ConfigService } from '@nestjs/config';
 import OpenAI from 'openai';
 
@@ -14,19 +14,27 @@ const OpenAIImageValidationResponse = z.object({
 export class OpenAIService {
   openAiClient: OpenAI;
 
-  constructor(
-    private configService: ConfigService
-  ) {
+  constructor(private configService: ConfigService) {
     this.openAiClient = new OpenAI({
-      apiKey: this.configService.getOrThrow('OPENAI_API_KEY', 'OpenAI API key is not set in the environment variables.'),
+      apiKey: this.configService.getOrThrow(
+        'OPENAI_API_KEY',
+        'OpenAI API key is not set in the environment variables.',
+      ),
     });
   }
 
-  async askAboutImage(prompt: string, mimeType: string, imageBase64: string): Promise<ImageValidationResponse> {
+  async askAboutImage(
+    prompt: string,
+    mimeType: string,
+    imageBase64: string,
+  ): Promise<ImageValidationResponse> {
     try {
       const response = await this.openAiClient.beta.chat.completions.parse({
         model: 'gpt-4o-mini',
-        response_format: zodResponseFormat(OpenAIImageValidationResponse, "validation"),
+        response_format: zodResponseFormat(
+          OpenAIImageValidationResponse,
+          'validation',
+        ),
         messages: [
           {
             role: 'system',
@@ -41,29 +49,32 @@ export class OpenAIService {
               }
               
               Always ensure your response is accurate and concise, explaining your reasoning clearly in the \`message\` field.
-            `.trim()
+            `.trim(),
           },
           {
             role: 'user',
-            "content": [
+            content: [
               {
-                "type": "text",
-                "text": prompt,
+                type: 'text',
+                text: prompt,
               },
               {
-                "type": "image_url",
-                "image_url": {
-                  "url": `data:${mimeType};base64,${imageBase64}`
+                type: 'image_url',
+                image_url: {
+                  url: `data:${mimeType};base64,${imageBase64}`,
                 },
               },
             ],
           },
-        ],   
+        ],
       });
 
       return response.choices[0].message.parsed;
     } catch (error) {
-      console.error('Error sending image to GPT:', error.response?.data || error.message);
+      console.error(
+        'Error sending image to GPT:',
+        error.response?.data || error.message,
+      );
       throw new Error('Failed to send image to GPT API');
     }
   }
