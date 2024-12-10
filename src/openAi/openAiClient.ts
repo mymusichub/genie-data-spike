@@ -5,7 +5,7 @@ import OpenAI from 'openai';
 @Injectable()
 export class OpenAIClient {
   client: OpenAI;
-  
+
   constructor(private configService: ConfigService) {
     this.client = new OpenAI({
       apiKey: this.configService.getOrThrow(
