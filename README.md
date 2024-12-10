@@ -24,7 +24,7 @@ This endpoint receives an image and a prompt, processes the image, and returns w
 
 ```bash
 curl -X POST http://localhost:3000/images/validate \
-  -F "file=@temp_image.jpg" \
+  -F "file=@test-image.png" \
   -F "prompt=Does this image contain the text 'hello'?"
 ```
 
@@ -83,11 +83,14 @@ The API returns a JSON object containing:
 
 ### Example 1: Validating Text in Image
 
+
+![Example image](./test-image.png)
+
 **Request:**
 
 ```bash
 curl -X POST http://localhost:3000/images/validate \
-  -F "file=@temp_image.jpg" \
+  -F "file=@test-image.png" \
   -F "prompt=Does this image contain the text 'hello'?"
 ```
 
@@ -106,8 +109,8 @@ curl -X POST http://localhost:3000/images/validate \
 
 ```bash
 curl -X POST http://localhost:3000/images/validate \
-  -F "file=@temp_image.jpg" \
-  -F "prompt=Does this image contain the text 'Goodbye'?"
+  -F "file=@test-image.png" \
+  -F "prompt=Does this image contain the text 'Testing 123'?"
 ```
 
 **Response:**
@@ -115,12 +118,9 @@ curl -X POST http://localhost:3000/images/validate \
 ```json
 {
   "match": true,
-  "message": "The image contains the text 'Goodbye' as part of the design."
+  "message": "The image contains the text 'Testing 123' as part of the design."
 }
 ```
-
-**Example Image Used:**
-[https://fakeimg.pl/350x200/?text=Goodbye](https://fakeimg.pl/350x200/?text=Goodbye)
 
 ---
 

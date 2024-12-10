@@ -1,4 +1,3 @@
-import fs from "fs"
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { OpenAIService } from 'src/openAi/openAi.service';
 import { ImageValidationResponse } from "src/app.types";
@@ -10,7 +9,7 @@ export class ImageService {
   constructor(private readonly openAiService: OpenAIService) {}
   
   private encodeImageToBase64(file: Express.Multer.File): string {
-    if (!this.ALLOWED_FILE_MIME_TYPES.includes(file.mimetype)) {
+    if (!file || !this.ALLOWED_FILE_MIME_TYPES.includes(file.mimetype)) {
       throw new BadRequestException('Invalid file type. Only JPEG, PNG, and GIF are allowed.');
     }
     return file.buffer.toString('base64');
