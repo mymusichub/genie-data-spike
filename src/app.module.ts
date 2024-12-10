@@ -1,10 +1,17 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ImageController } from './image/image.controller';
+import { ImageService } from './image/image.service';
+import { OpenAIService } from './openAi/openAi.service';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+      isGlobal: true, 
+    }),
+  ],
+  controllers: [ImageController],
+  providers: [ImageService, OpenAIService],
 })
 export class AppModule {}
