@@ -2,6 +2,8 @@
 
 This API allows users to upload images and submit a prompt. It uses OpenAI's GPT model to analyze the image and determine if it meets the criteria specified in the prompt.
 
+> Requires an OPEN AI Api Key to be added to a .env file `OPENAI_API_KEY=sk-xxxxxxxx`
+
 ## Endpoint
 
 ### POST `/images/validate`
