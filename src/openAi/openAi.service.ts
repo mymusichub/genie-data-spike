@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { zodResponseFormat } from 'openai/helpers/zod';
+import { ImageValidationResponse } from 'src/app.types';
+import { OpenAIClient } from 'src/openAi/openAiClient';
 import { z } from 'zod';
-import { ImageValidationResponse } from 'app.types';
-import { ConfigService } from '@nestjs/config';
-import OpenAI from 'openai';
 
 const OpenAIImageValidationResponse = z.object({
   match: z.boolean(),
@@ -12,16 +11,8 @@ const OpenAIImageValidationResponse = z.object({
 
 @Injectable()
 export class OpenAIService {
-  openAiClient: OpenAI;
 
-  constructor(private configService: ConfigService) {
-    this.openAiClient = new OpenAI({
-      apiKey: this.configService.getOrThrow(
-        'OPENAI_API_KEY',
-        'OpenAI API key is not set in the environment variables.',
-      ),
-    });
-  }
+  constructor(private openAiClient: OpenAIClient) {}
 
   async askAboutImage(
     prompt: string,
@@ -29,7 +20,7 @@ export class OpenAIService {
     imageBase64: string,
   ): Promise<ImageValidationResponse> {
     try {
-      const response = await this.openAiClient.beta.chat.completions.parse({
+      const response = await this.openAiClient.client.beta.chat.completions.parse({
         model: 'gpt-4o-mini',
         response_format: zodResponseFormat(
           OpenAIImageValidationResponse,
