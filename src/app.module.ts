@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { ImageController } from 'src/image/image.controller';
-import { ImageService } from 'src/image/image.service';
+import { AnalysisService } from 'src/analysis/analysis.service';
 import { OpenAIService } from 'src/openAi/openAi.service';
-import { OpenAIClient } from './openAi/openAiClient';
+import { OpenAIClient } from './openAi/openAi.client';
+import { AppController } from './app.controller';
+import { PhylloService } from './phyllo/phyllo.service';
+import { PhylloClient } from './phyllo/phyllo.client';
+import { BigQueryService } from './bigquery/bigquery.service';
 
 @Module({
   imports: [
@@ -12,7 +15,7 @@ import { OpenAIClient } from './openAi/openAiClient';
       isGlobal: true,
     }),
   ],
-  controllers: [ImageController],
-  providers: [ImageService, OpenAIService, OpenAIClient],
+  controllers: [AppController],
+  providers: [AnalysisService, OpenAIService, OpenAIClient, PhylloService, PhylloClient, BigQueryService],
 })
 export class AppModule {}

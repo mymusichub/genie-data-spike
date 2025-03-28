@@ -1,0 +1,20 @@
+[{
+  "user_id": "3a35000d-4a13-4136-80ba-2c89c420d343",
+  "country": "DE",
+  "user_type": "Non-GEMA",
+  "main_artists_released": 1,
+  "user_role": "ARTIST_SOLO",
+  "main_genre": "Electronic",
+  "total_income": 185.383714407,
+  "income_2024": 76.834655229,
+  "income_2023": 103.473316905,
+  "income_2022": null,
+  "total_releases": 6,
+  "total_releases_2024": 1,
+  "total_releases_2023": 4,
+  "total_releases_2022": 1,
+  "ingested_releases": 3,
+  "ingested_releases_2024": null,
+  "ingested_releases_2023": 3,
+  "ingested_releases_2022": null
+}]
