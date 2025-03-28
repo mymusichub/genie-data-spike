@@ -18,7 +18,7 @@ export class OpenAIService {
 
   async analyzeImages(
     prompt: string,
-    imageUrls: string[]
+    imageUrls: string[],
   ): Promise<AnalysisResponse> {
     try {
       const response =
@@ -53,15 +53,15 @@ export class OpenAIService {
                   type: 'text',
                   text: prompt,
                 },
-                ...(imageUrls.map(it => {
+                ...(imageUrls.map((it) => {
                   return {
                     type: 'image_url',
                     image_url: {
                       url: it,
-                      detail: 'low'
+                      detail: 'low',
                     },
-                  }
-                }) as ChatCompletionContentPart[])
+                  };
+                }) as ChatCompletionContentPart[]),
               ],
             },
           ],
@@ -80,7 +80,7 @@ export class OpenAIService {
 
   async analyzeLanguage(
     prompt: string,
-    textBlocks: string[]
+    textBlocks: string[],
   ): Promise<AnalysisResponse> {
     try {
       const response =
@@ -115,18 +115,21 @@ export class OpenAIService {
                   type: 'text',
                   text: prompt,
                 },
-                ...(textBlocks.map(text => {
+                ...(textBlocks.map((text) => {
                   return {
                     type: 'text',
-                    text
-                  }
-                }) as ChatCompletionContentPart[])
+                    text,
+                  };
+                }) as ChatCompletionContentPart[]),
               ],
             },
           ],
         });
 
-      console.log('Tokens used to analyzeLanguage', response.usage.total_tokens);
+      console.log(
+        'Tokens used to analyzeLanguage',
+        response.usage.total_tokens,
+      );
       return response.choices[0].message.parsed;
     } catch (error) {
       console.error(
@@ -137,19 +140,19 @@ export class OpenAIService {
     }
   }
 
-  async webSearch(
-    webSearchPrompt: string
-  ): Promise<AnalysisResponse> {
+  async webSearch(webSearchPrompt: string): Promise<AnalysisResponse> {
     try {
       const response = await this.openAiClient.client.responses.create({
-        model: "gpt-4o",
-        tools: [{
-          type: "web_search_preview",
-          user_location: {
-            type: "approximate",
-            country: "DE"
-          }
-        }],
+        model: 'gpt-4o',
+        tools: [
+          {
+            type: 'web_search_preview',
+            user_location: {
+              type: 'approximate',
+              country: 'DE',
+            },
+          },
+        ],
         input: `
           ${webSearchPrompt}
 
@@ -162,11 +165,13 @@ export class OpenAIService {
           }
           
           Always ensure your response is accurate and concise and adhering to the json output, explaining your reasoning clearly in the \`message\` field. Never return the "json" snippet identifier in response.
-        `
+        `,
       });
 
-      console.log('Tokens used to perform webSearch', response.usage.total_tokens);
-      console.log('Tokens used to perform webSearch', response.output_text);
+      console.log(
+        'Tokens used to perform webSearch',
+        response.usage.total_tokens,
+      );
       return OpenAIAnalysisResponse.parse(JSON.parse(response.output_text));
     } catch (error) {
       console.error(

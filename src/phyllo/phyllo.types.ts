@@ -4,8 +4,21 @@ export interface PhylloUser {
 
 export interface PhylloContentItem {
   title: string; // Title of the content item
-  format: "VIDEO" | "IMAGE" | "AUDIO" | "TEXT" | "OTHER"; // Media type of the content item
-  type: "VIDEO" | "POST" | "STORY" | "TWEET" | "BLOG" | "IMAGE" | "THREAD" | "PODCAST" | "TRACK" | "REELS" | "STREAM" | "FEED" | "IGTV"; // Platform specific content type
+  format: 'VIDEO' | 'IMAGE' | 'AUDIO' | 'TEXT' | 'OTHER'; // Media type of the content item
+  type:
+    | 'VIDEO'
+    | 'POST'
+    | 'STORY'
+    | 'TWEET'
+    | 'BLOG'
+    | 'IMAGE'
+    | 'THREAD'
+    | 'PODCAST'
+    | 'TRACK'
+    | 'REELS'
+    | 'STREAM'
+    | 'FEED'
+    | 'IGTV'; // Platform specific content type
   url: string; // Platform permanent content URL
   media_url: string; // Direct media URL of the content item
   duration: number; // Video duration in seconds (only available for YouTube)
@@ -77,12 +90,12 @@ export interface PhylloUserProfile {
     id: string;
     platform_username: string;
     username: string;
-  },
+  };
   work_platform: {
-    id: string
+    id: string;
     name: string;
     logo_url: string;
-  }
+  };
 }
 
 export interface PhylloReputation {
@@ -96,7 +109,7 @@ export interface PhylloReputation {
 }
 
 export interface PhylloEmail {
-  type: "WORK" | "OTHER" | "HOME"; // Type of the email ID
+  type: 'WORK' | 'OTHER' | 'HOME'; // Type of the email ID
   email_id: string; // Email ID of the user
 }
 
@@ -106,7 +119,7 @@ export interface PhylloPhoneNumber {
 }
 
 export interface PhylloAddress {
-  type: "WORK" | "OTHER" | "HOME"; // Type of the address
+  type: 'WORK' | 'OTHER' | 'HOME'; // Type of the address
   address: string; // Address of the user
 }
 
@@ -117,7 +130,7 @@ export interface PhylloReputationContent {
 }
 
 export interface PhylloEmailsType {
-  type: "WORK" | "OTHER" | "HOME"; // Type of the email ID
+  type: 'WORK' | 'OTHER' | 'HOME'; // Type of the email ID
 }
 
 export interface PhylloPhoneNumbersType {
@@ -125,5 +138,5 @@ export interface PhylloPhoneNumbersType {
 }
 
 export interface PhylloAddressesType {
-  type: "WORK" | "OTHER" | "HOME"; // Type of the address
+  type: 'WORK' | 'OTHER' | 'HOME'; // Type of the address
 }

@@ -8,10 +8,12 @@ export class PhylloClient {
 
   constructor(private configService: ConfigService) {
     this.apiBaseUrl = 'https://api.staging.getphyllo.com/v1';
-    this.apiToken = btoa(this.configService.getOrThrow(
-      'PHYLLO_API_TOKEN',
-      'PHYLLO API TOKEN is not set in the environment variables.',
-    ));
+    this.apiToken = btoa(
+      this.configService.getOrThrow(
+        'PHYLLO_API_TOKEN',
+        'PHYLLO API TOKEN is not set in the environment variables.',
+      ),
+    );
   }
 
   async get<T extends {}>(url: string): Promise<T> {
@@ -24,11 +26,11 @@ export class PhylloClient {
     });
 
     if (!response.ok) {
-      console.log(response, await response.json())
+      console.log(response, await response.json());
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    return await response.json() as T;
+    return (await response.json()) as T;
   }
 
   async post<T extends {}>(url: string, body: string): Promise<T> {
@@ -38,7 +40,7 @@ export class PhylloClient {
         Authorization: `Basic ${this.apiToken}`,
         'Content-Type': 'application/json',
       },
-      body
+      body,
     });
 
     if (!response.ok) {
@@ -46,6 +48,6 @@ export class PhylloClient {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    return await response.json() as T;
+    return (await response.json()) as T;
   }
 }

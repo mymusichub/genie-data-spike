@@ -16,6 +16,13 @@ import { BigQueryService } from './bigquery/bigquery.service';
     }),
   ],
   controllers: [AppController],
-  providers: [AnalysisService, OpenAIService, OpenAIClient, PhylloService, PhylloClient, BigQueryService],
+  providers: [
+    AnalysisService,
+    OpenAIService,
+    OpenAIClient,
+    PhylloService,
+    PhylloClient,
+    BigQueryService,
+  ],
 })
 export class AppModule {}
